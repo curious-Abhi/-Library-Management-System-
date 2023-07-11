@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FIRST PROJECT USING C.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.cpp1-assembler { color: #0000FF; }
+.cpp1-character { color: #000000; }
+.cpp1-comment { color: #0078D7; font-style: italic; }
+.cpp1-float { color: #800080; }
+.cpp1-hexadecimal { color: #800080; }
+.cpp1-identifier { color: #000000; }
+.cpp1-illegalchar { color: #000000; }
+.cpp1-number { color: #800080; }
+.cpp1-octal { color: #800080; }
+.cpp1-preprocessor { color: #008000; }
+.cpp1-reservedword { color: #000000; font-weight: bold; }
+.cpp1-space { background-color: #FFFFFF; color: #000000; }
+.cpp1-string { color: #0000FF; font-weight: bold; }
+.cpp1-symbol { color: #FF0000; font-weight: bold; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 16pt Consolas;"><span class="cpp1-space">                                          </span><span class="cpp1-comment">// PROJECT
+</span><span class="cpp1-space">				
+			                  	</span><span class="cpp1-comment">// LIBRARY MANAGEMENT SYSTEM
+</span><span class="cpp1-space">				</span><span class="cpp1-comment">/*for adding books, searching books, issuing books to members,and returning books.*/
+
+</span><span class="cpp1-preprocessor">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define MAX_BOOKS 100
+#define MAX_MEMBERS 100
+
+</span><span class="cpp1-comment">// now defining structures to represent the books and members
+</span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Book </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">char</span><span class="cpp1-space"> title</span><span class="cpp1-symbol">[</span><span class="cpp1-number">50</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">char</span><span class="cpp1-space"> author</span><span class="cpp1-symbol">[</span><span class="cpp1-number">50</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> available</span><span class="cpp1-symbol">;
+};
+
+</span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Member </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> memberID</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">char</span><span class="cpp1-space"> name</span><span class="cpp1-symbol">[</span><span class="cpp1-number">50</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> borrowedBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">MAX_BOOKS</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> numBorrowedBooks</span><span class="cpp1-symbol">;
+};
+
+</span><span class="cpp1-comment">// creating storage space for books and members
+
+</span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Book libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">MAX_BOOKS</span><span class="cpp1-symbol">];
+</span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Member libraryMembers</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">MAX_MEMBERS</span><span class="cpp1-symbol">];
+</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> numBooks </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> numMembers </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+
+</span><span class="cpp1-comment">// NOW ADDING BOOK
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space"> addBook</span><span class="cpp1-symbol">()</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Book newBook</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Book ID: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;%d&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">newBook</span><span class="cpp1-symbol">.</span><span class="cpp1-identifier">bookID</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Book Title: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot; %[^\n]&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> newBook</span><span class="cpp1-symbol">.</span><span class="cpp1-identifier">title</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Book Author: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot; %[^\n]&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> newBook</span><span class="cpp1-symbol">.</span><span class="cpp1-identifier">author</span><span class="cpp1-symbol">);
+
+</span><span class="cpp1-space">    newBook</span><span class="cpp1-symbol">.</span><span class="cpp1-identifier">available </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">numBooks</span><span class="cpp1-symbol">++]</span><span class="cpp1-space"> </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> newBook</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book added successfully!\n&quot;</span><span class="cpp1-symbol">);
+}
+
+</span><span class="cpp1-comment">// FOR SEARCHING
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space"> searchBook</span><span class="cpp1-symbol">()</span><span class="cpp1-space"> 
+</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">char</span><span class="cpp1-space"> keyword</span><span class="cpp1-symbol">[</span><span class="cpp1-number">50</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter search keyword: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot; %[^\n]&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> keyword</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> found </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">for</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">&lt;</span><span class="cpp1-space"> numBooks</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">++)</span><span class="cpp1-space"> 
+	</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">strstr</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">title</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> keyword</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">||</span><span class="cpp1-space"> strstr</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">author</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> keyword</span><span class="cpp1-symbol">))</span><span class="cpp1-space"> 
+		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book ID: %d\n&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">bookID</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">            printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Title: %s\n&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">title</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">            printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Author: %s\n&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">author</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">            printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Available: %s\n&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">available </span><span class="cpp1-symbol">?</span><span class="cpp1-space"> </span><span class="cpp1-string">&quot;Yes&quot;</span><span class="cpp1-space"> </span><span class="cpp1-symbol">:</span><span class="cpp1-space"> </span><span class="cpp1-string">&quot;No&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">            found </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(!</span><span class="cpp1-identifier">found</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> 
+	</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;No matching books found.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+}
+
+</span><span class="cpp1-comment">// FOR ISSUING
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space"> issueBook</span><span class="cpp1-symbol">()</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> memberID</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Member ID: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;%d&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">memberID</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Book ID: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;%d&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">bookID</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Member </span><span class="cpp1-symbol">*</span><span class="cpp1-identifier">member </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">for</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">&lt;</span><span class="cpp1-space"> numMembers</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">++)</span><span class="cpp1-space"> 
+	</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">libraryMembers</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">memberID </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> memberID</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> 
+		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            member </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">libraryMembers</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">member </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> 
+	</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Member not found.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">numBorrowedBooks </span><span class="cpp1-symbol">&gt;=</span><span class="cpp1-space"> MAX_BOOKS</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Member has reached the borrowing limit.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Book </span><span class="cpp1-symbol">*</span><span class="cpp1-identifier">book </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">for</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">&lt;</span><span class="cpp1-space"> numBooks</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">++)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">bookID </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            book </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">book </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book not found.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(!</span><span class="cpp1-identifier">book</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">available</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book is not available for borrowing.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    book</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">available </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">borrowedBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">numBorrowedBooks</span><span class="cpp1-symbol">++]</span><span class="cpp1-space"> </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book issued successfully!\n&quot;</span><span class="cpp1-symbol">);
+}
+</span><span class="cpp1-comment">// FOR RETURNING
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space"> returnBook</span><span class="cpp1-symbol">()</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> memberID</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Member ID: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;%d&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">memberID</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter Book ID: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;%d&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">bookID</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Member </span><span class="cpp1-symbol">*</span><span class="cpp1-identifier">member </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">for</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">&lt;</span><span class="cpp1-space"> numMembers</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">++)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">libraryMembers</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">memberID </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> memberID</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            member </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">libraryMembers</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">member </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Member not found.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">struct</span><span class="cpp1-space"> Book </span><span class="cpp1-symbol">*</span><span class="cpp1-identifier">book </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">for</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">&lt;</span><span class="cpp1-space"> numBooks</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">++)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">].</span><span class="cpp1-identifier">bookID </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            book </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">libraryBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">book </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> NULL</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book not found.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> found </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">for</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i </span><span class="cpp1-symbol">&lt;</span><span class="cpp1-space"> member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">numBorrowedBooks</span><span class="cpp1-symbol">;</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">++)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">borrowedBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">]</span><span class="cpp1-space"> </span><span class="cpp1-symbol">==</span><span class="cpp1-space"> bookID</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            found </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">            member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">numBorrowedBooks</span><span class="cpp1-symbol">--;
+</span><span class="cpp1-space">            member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">borrowedBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">]</span><span class="cpp1-space"> </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">borrowedBooks</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">member</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">numBorrowedBooks</span><span class="cpp1-symbol">];
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(!</span><span class="cpp1-identifier">found</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Member has not borrowed this book.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        </span><span class="cpp1-reservedword">return</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    
+    book</span><span class="cpp1-symbol">-&gt;</span><span class="cpp1-identifier">available </span><span class="cpp1-symbol">=</span><span class="cpp1-space"> </span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Book returned successfully!\n&quot;</span><span class="cpp1-symbol">);
+}
+
+</span><span class="cpp1-number">8
+</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> main</span><span class="cpp1-symbol">()</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">    </span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> choice</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">do</span><span class="cpp1-space"> </span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;\n===== Library Management System =====\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;1. Add Book\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;2. Search Book\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;3. Issue Book\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;4. Return Book\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;5. Exit\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Enter your choice: &quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        scanf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;%d&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-space"> </span><span class="cpp1-symbol">&amp;</span><span class="cpp1-identifier">choice</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">        
+        </span><span class="cpp1-reservedword">switch</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">choice</span><span class="cpp1-symbol">)</span><span class="cpp1-space"> 
+		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">case</span><span class="cpp1-space"> </span><span class="cpp1-number">1</span><span class="cpp1-symbol">:
+</span><span class="cpp1-space">                addBook</span><span class="cpp1-symbol">();
+</span><span class="cpp1-space">                </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">case</span><span class="cpp1-space"> </span><span class="cpp1-number">2</span><span class="cpp1-symbol">:
+</span><span class="cpp1-space">                searchBook</span><span class="cpp1-symbol">();
+</span><span class="cpp1-space">                </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">case</span><span class="cpp1-space"> </span><span class="cpp1-number">3</span><span class="cpp1-symbol">:
+</span><span class="cpp1-space">                issueBook</span><span class="cpp1-symbol">();
+</span><span class="cpp1-space">                </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">case</span><span class="cpp1-space"> </span><span class="cpp1-number">4</span><span class="cpp1-symbol">:
+</span><span class="cpp1-space">                returnBook</span><span class="cpp1-symbol">();
+</span><span class="cpp1-space">                </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">case</span><span class="cpp1-space"> </span><span class="cpp1-number">5</span><span class="cpp1-symbol">:
+</span><span class="cpp1-space">                printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Exiting...\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">                </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">            </span><span class="cpp1-reservedword">default</span><span class="cpp1-symbol">:
+</span><span class="cpp1-space">                printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;Invalid choice. Please try again.\n&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">                </span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">    </span><span class="cpp1-symbol">}</span><span class="cpp1-space"> </span><span class="cpp1-reservedword">while</span><span class="cpp1-space"> </span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">choice </span><span class="cpp1-symbol">!=</span><span class="cpp1-space"> </span><span class="cpp1-number">5</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">    
+    </span><span class="cpp1-reservedword">return</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+}
+
+</span></span>
+</code></pre>
+</body>
+</html>
